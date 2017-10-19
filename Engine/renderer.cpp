@@ -5,13 +5,13 @@
 #include <glm\vec3.hpp>
 
 //#define FULLSCREEN
-int Renderer::m_width = 0;
-int Renderer::m_height = 0;
+int Renderer::m_width = 800;
+int Renderer::m_height = 600;
 
 void resize_callback(GLFWwindow* window, int width, int height)
 {
 	Renderer::m_width = width;
-	Renderer::m_width = width;
+	Renderer::m_height = height;
 }
 
 Renderer::Renderer(Engine* engine) : System(engine)
@@ -42,7 +42,10 @@ bool Renderer::Initialize()
 	const GLFWvidmode* videoMode = glfwGetVideoMode(monitor);
 	m_window = glfwCreateWindow(videoMode->width, videoMode->height, "computer graphics", monitor, nullptr);
 #else
-	m_window = glfwCreateWindow(640, 480, "computer graphics", nullptr, nullptr);
+	Renderer::m_height = 600;
+	Renderer::m_width = 800;
+
+	m_window = glfwCreateWindow(m_width, m_height, "computer graphics", nullptr, nullptr);
 #endif // FULLSCREEN
 	if (!m_window)
 	{
@@ -52,8 +55,8 @@ bool Renderer::Initialize()
 	glfwMakeContextCurrent(m_window);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
 
-	Renderer::m_width = 640;
-	Renderer::m_height = 480;
+	Renderer::m_width = 800;
+	Renderer::m_height = 600;
 
 	if (!gladLoadGL())
 	{
