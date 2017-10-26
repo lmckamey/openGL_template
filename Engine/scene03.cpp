@@ -5,10 +5,11 @@
 #include "timer.h"
 #include "renderer.h"
 #include "stdafx.h"
+#define PHONG
 
 
 namespace
-{
+{	
 	float vertexData[] =
 	{
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -82,8 +83,12 @@ Scene03::~Scene03()
 bool Scene03::Initalize()
 {
 
+#ifdef PHONG
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\phong.vert.shader", "..\\Resources\\Shaders\\phong.frag.shader");
+#else
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\gouraud.vert.shader", "..\\Resources\\Shaders\\basic.frag");
+#endif // PHONG
 
-	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\light.vert.shader", "..\\Resources\\Shaders\\basic.frag");
 
 	GLuint vboHandles[3];
 	glGenBuffers(3, vboHandles);
@@ -127,7 +132,7 @@ void Scene03::Update()
 {
 	m_rotation = m_rotation + m_engine->Get<Timer>()->FrameTime();
 	translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-	rotate = glm::rotate(glm::mat4(1.0f), m_rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+	rotate = glm::rotate(glm::mat4(1.0f), m_rotation, glm::vec3(1.0f, 0.0f, 0.0f));
 	mxModel = translate * rotate;
 	mxView = glm::lookAt(glm::vec3(0.0f, 1.0f, 1.5f), glm::vec3(0), glm::vec3(0, 1, 0));
 	mxProjection = glm::perspective(90.0f, (float)m_engine->Get<Renderer>()->m_width / (float)m_engine->Get<Renderer>()->m_height, 0.1f, 1000.0f);
@@ -138,10 +143,9 @@ void Scene03::Update()
 	glUniformMatrix4fv(m_cube.mxMVPUniform, 1, GL_FALSE, &MVP[0][0]);
 
 	mxNormal = glm::mat3(mxModelView);
-	glm::vec3 ambientMaterial = glm::vec3(0.0f, 0.15f, 0.15f);
+	glm::vec3 ambientMaterial = glm::vec3(0.2f, 0.2f, 0.2f);
 	glUniform3fv(m_cube.ambientMaterialUniform, 1, &ambientMaterial[0]);
 
-	glm::mat4 mxModelView = mxView * mxModel;
 	glUniformMatrix4fv(m_cube.mxModelViewUniform, 1, GL_FALSE, &mxModelView[0][0]);
 
 	glm::mat3 mxNormal = glm::mat3(mxModelView);

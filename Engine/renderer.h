@@ -24,5 +24,6 @@ public:
 	GLFWwindow* m_window;
 	static int m_width;
 	static int m_height;
+	static std::string GetTypeString(GLenum type);
 };
 

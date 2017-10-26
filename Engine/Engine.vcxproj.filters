@@ -54,6 +54,15 @@
     <ClCompile Include="scene03.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Scene04.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\middleware\glad\include\glad\glad.h">
@@ -89,6 +98,15 @@
     <ClInclude Include="scene03.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Scene04.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="basic.vert">
@@ -100,7 +118,19 @@
     <None Include="..\Resources\Shaders\transform.vert.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
-    <None Include="..\Resources\Shaders\light.vert.shader">
+    <None Include="..\Resources\Shaders\gouraud.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\texture_phong.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\texture_phong.vert.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>
