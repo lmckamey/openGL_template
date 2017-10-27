@@ -6,7 +6,7 @@
 #include "renderer.h"
 #include "stdafx.h"
 #include "image.h"
-//#define PHONG
+#define SPECULAR_TEXTURES
 
 
 namespace
@@ -77,6 +77,13 @@ namespace
 	glm::mat4 translate;
 	glm::mat4 rotate;
 	glm::mat4 MVP;
+
+	GLuint textattrib1;
+	GLuint textureID1;
+
+
+	GLuint textattrib2;
+	GLuint textureID2;
 }
 
 Scene04::~Scene04()
@@ -86,39 +93,71 @@ Scene04::~Scene04()
 bool Scene04::Initalize()
 {
 
-#ifdef PHONG
-	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\phong.vert.shader", "..\\Resources\\Shaders\\phong.frag.shader");
-#else
-	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\texture_phong.vert.shader", "..\\Resources\\Shaders\\texture_phong.frag");
-#endif // PHONG
 	GLint bpp;
 	GLint height;
 	GLint width;
-	const unsigned char* data = Image::LoadBMP("/../Resources/Textures/crate.bmp", width, height, bpp);
+#ifdef PHONG
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\phong.vert.shader", "..\\Resources\\Shaders\\phong.frag.shader");
+#elif defined(TEXTURES)
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\texture_phong.vert.shader", "..\\Resources\\Shaders\\texture_phong.frag.shader");
+#elif defined(MIX_TEXTURES)
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\multi_texture_phong.vert.shader", "..\\Resources\\Shaders\\multi_texture_phong.frag.shader");
+	const unsigned char* data2 = Image::LoadBMP("..\\Resources\\Textures\\grass.bmp", width, height, bpp);
+#elif defined(SPECULAR_TEXTURES)
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\texture_phong_specular.vert.shader", "..\\Resources\\Shaders\\texture_phong_specular.frag.shader");
+	const unsigned char* data2 = Image::LoadBMP("..\\Resources\\Textures\\crate_specular.bmp", width, height, bpp);
+#else
+	m_cube.shaderProgram = m_engine->Get<Renderer>()->CreateShaderProgram("..\\Resources\\Shaders\\gouraud.vert.shader", "..\\Resources\\Shaders\\gouraud.frag.shader");
 
-	GLuint textures[2];
+#endif // PHONG
+
+	const unsigned char* data = Image::LoadBMP("..\\Resources\\Textures\\crate.bmp", width, height, bpp);
+
 	
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1,textures);
+	glGenTextures(1, &textureID1);
 	
-	glBindTexture(GL_TEXTURE_2D, GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID1);
 	if (bpp == 32)
 	{
-		glTextureStorage2D(GL_TEXTURE0,0, GL_RGBA, height, width);
-		glTexImage2D(GL_TEXTURE0,0,GL_RGBA,width,height,0,GL_UNSIGNED_BYTE,GL_RGBA, data);
-		//glTextureSubImage2D(GL_TEXTURE_2D, GL_TEXTURE0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_INT, data);
-		glGenerateMipmap(GL_TEXTURE0);
-		glGetUniformLocation(m_cube.shaderProgram, "IDK");
+		glTextureStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, height, width);
+		glTexImage2D(GL_TEXTURE_2D,0,0,width,height,0,GL_UNSIGNED_BYTE,GL_BGRA, data);
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+
 		delete data;
 	}
 	else if (bpp == 24)
 	{
-		glTextureStorage2D(GL_TEXTURE0, 1, GL_RGB, height, width);
-		glTexImage2D(GL_TEXTURE0,0,GL_RGB,width,height,0,GL_UNSIGNED_BYTE,GL_RGB, data);
-		//glTextureSubImage2D(GL_TEXTURE_2D, GL_TEXTURE0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_INT, data);
-		glGenerateMipmap(GL_TEXTURE0);
-		glGetUniformLocation(m_cube.shaderProgram, "IDK");
+		glTexStorage2D(GL_TEXTURE_2D,0, GL_RGB8, width, height);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_BGR,GL_UNSIGNED_BYTE, data);
+		
+		glGenerateMipmap(GL_TEXTURE_2D);
+
 		delete data;
+	}
+
+
+
+	glGenTextures(1, &textureID2);
+
+	glBindTexture(GL_TEXTURE_2D, textureID2);
+	if (bpp == 32)
+	{
+		glTextureStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, height, width);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_UNSIGNED_BYTE, GL_RGBA, data2);
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		delete data2;
+	}
+	else if (bpp == 24)
+	{
+		glTexStorage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data2);
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		delete data2;
 	}
 
 	GLuint vboHandles[3];
@@ -159,7 +198,8 @@ bool Scene04::Initalize()
 	m_light.positionUniform = glGetUniformLocation(m_cube.shaderProgram, "lightPosition");
 	m_light.colorUniform = glGetUniformLocation(m_cube.shaderProgram, "lightColor");
 
-
+	textattrib1 = glGetUniformLocation(m_cube.shaderProgram, "textureSampler");
+	textattrib2 = glGetUniformLocation(m_cube.shaderProgram, "textureSampler2");
 
 	return true;
 }
@@ -195,11 +235,12 @@ void Scene04::Update()
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	glUniform3fv(m_light.colorUniform, 1, &lightColor[0]);
 
-	glm::vec3 diffuseMaterial = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 diffuseMaterial = glm::vec3(0.9f, 0.9f, 0.9f);
 	glUniform3fv(m_cube.diffuseMaterialUniform, 1, &diffuseMaterial[0]);
 
-	glm::vec3 specularMaterial = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3 specularMaterial = glm::vec3(1.0f, 1.0f, 1.0f);
 	glUniform3fv(m_cube.specularMaterialUniform, 1, &specularMaterial[0]);
+
 
 }
 
@@ -209,6 +250,15 @@ void Scene04::Render()
 
 	// render code
 	glBindVertexArray(vaoHandle);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID1);
+	glUniform1i(textattrib1, 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, textureID2);
+	glUniform1i(textattrib2, 1);
+
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 }

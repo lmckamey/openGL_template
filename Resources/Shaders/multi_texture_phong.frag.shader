@@ -14,6 +14,7 @@ uniform vec3 lightPosition;
 uniform vec3 lightColor;
 
 uniform sampler2D textureSampler;
+uniform sampler2D textureSampler2;
 
 void main()
 {
@@ -22,7 +23,8 @@ void main()
 
 
 	float diffuseIntensity = max(dot(positionToLight, outFragmentNormal), 0.0);
-	vec3 diffuse = lightColor * diffuseMaterial * diffuseIntensity;
+	//vec3 diffuse = lightColor * diffuseMaterial * diffuseIntensity;
+	vec3 diffuse = lightColor * diffuseIntensity;
 	vec3 ambient = ambientMaterial;
 
 	vec3 specular = vec3(0.0);
@@ -36,7 +38,12 @@ void main()
 		specular = lightColor * specularMaterial * specularIntensity;
 	}
 
-	vec4 texColor = texture(textureSampler, outUVData);
+	vec4 texColor1 = texture(textureSampler, outUVData);
+	vec4 texColor2	  = texture(textureSampler2, outUVData);
+
+	vec4 texColor = mix(texColor1, texColor2, 0.5);
+
 
 	outFragmentColor = texColor *vec4((ambient + diffuse), 1.0) + vec4(specular, 1.0);
+	//outFragmentColor = texColor + vec4(specular, 1.0);
 }

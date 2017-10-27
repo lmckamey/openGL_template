@@ -7,9 +7,9 @@ namespace Image
 	{
 		char header[54];
 		
-		std::fstream myfile;
+		std::ifstream myfile;
 		myfile.open(filename, std::ios::binary);
-		if (myfile.is_open())
+		if (!myfile.is_open())
 		{
 			std::cout << "Failed to Load File" << std::endl;
 			return nullptr;
@@ -19,10 +19,15 @@ namespace Image
 		width = *(int*)&(header[18]);
 		height = *(int*)&(header[22]);
 		bpp = *(int*)&(header[28]);
-		int size = (int)&(header[34]);
+		int size = *(int*)&(header[34]);
+		int offset = *(int*)&(header[0x0A]);
 
 		unsigned char* data = new unsigned char[size];
+
+		//myfile.seekg(offset);
 		myfile.read((char*)data, size);
+
+		myfile.close();
 
 		return data;
 	}

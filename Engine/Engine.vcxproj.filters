@@ -54,14 +54,14 @@
     <ClCompile Include="scene03.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Scene04.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="image.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene04.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,16 @@
     <None Include="..\Resources\Shaders\texture_phong.frag.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
-    <None Include="..\Resources\Shaders\texture_phong.vert.shader">
+    <None Include="..\Resources\Shaders\multi_texture_phong.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\multi_texture_phong.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\texture_phong_specular.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\texture_phong_specular.vert.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>

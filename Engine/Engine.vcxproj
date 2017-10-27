@@ -148,10 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\gouraud.vert.shader" />
+    <None Include="..\Resources\Shaders\multi_texture_phong.frag.shader" />
+    <None Include="..\Resources\Shaders\multi_texture_phong.vert.shader" />
     <None Include="..\Resources\Shaders\phong.frag.shader" />
     <None Include="..\Resources\Shaders\phong.vert.shader" />
     <None Include="..\Resources\Shaders\texture_phong.frag.shader" />
-    <None Include="..\Resources\Shaders\texture_phong.vert.shader" />
+    <None Include="..\Resources\Shaders\texture_phong_specular.frag.shader" />
+    <None Include="..\Resources\Shaders\texture_phong_specular.vert.shader" />
     <None Include="..\Resources\Shaders\transform.vert.shader" />
     <None Include="basic.frag.shader" />
     <None Include="basic.vert" />
