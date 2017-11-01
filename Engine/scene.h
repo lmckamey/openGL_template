@@ -11,6 +11,6 @@ public:
 	void virtual Render() = 0;
 	void virtual Shutdown() = 0;
 
-protected:
+public:
 	Engine * m_engine;
 };

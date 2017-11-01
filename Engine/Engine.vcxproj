@@ -75,7 +75,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\middleware\glad\include;$(SolutionDir)..\middleware\glm-master;$(SolutionDir)..\middleware\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\middleware\stb_Image;$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\middleware\glad\include;$(SolutionDir)..\middleware\glm-master;$(SolutionDir)..\middleware\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -117,9 +117,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\middleware\glad\src\glad.c" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -129,12 +132,17 @@
     <ClCompile Include="Scene04.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="timer.cpp" />
+    <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\middleware\glad\include\glad\glad.h" />
+    <ClInclude Include="..\..\middleware\stb_Image\stb_image.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene01.h" />
@@ -145,6 +153,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\gouraud.vert.shader" />
@@ -156,8 +165,6 @@
     <None Include="..\Resources\Shaders\texture_phong_specular.frag.shader" />
     <None Include="..\Resources\Shaders\texture_phong_specular.vert.shader" />
     <None Include="..\Resources\Shaders\transform.vert.shader" />
-    <None Include="basic.frag.shader" />
-    <None Include="basic.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,8 +4,6 @@ layout(location = 0) in vec3 vertexPosition;
 layout(location = 1) in vec3 vertexNormal;
 layout(location = 2) in vec2 UVdata;
 
-//layout(binding = 0) uniform sampler2D textureSampler;
-
 out vec4 outFragmentPosition;
 out vec3 outFragmentNormal;
 out vec2 outUVData;

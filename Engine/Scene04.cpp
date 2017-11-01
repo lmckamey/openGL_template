@@ -6,6 +6,7 @@
 #include "renderer.h"
 #include "stdafx.h"
 #include "image.h"
+#include "stb_image.h"
 #define SPECULAR_TEXTURES
 
 
@@ -79,11 +80,10 @@ namespace
 	glm::mat4 MVP;
 
 	GLuint textattrib1;
-	GLuint textureID1;
 
 
 	GLuint textattrib2;
-	GLuint textureID2;
+
 }
 
 Scene04::~Scene04()
@@ -114,51 +114,30 @@ bool Scene04::Initalize()
 	const unsigned char* data = Image::LoadBMP("..\\Resources\\Textures\\crate.bmp", width, height, bpp);
 
 	
-	glGenTextures(1, &textureID1);
-	
-	glBindTexture(GL_TEXTURE_2D, textureID1);
-	if (bpp == 32)
-	{
-		glTextureStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, height, width);
-		glTexImage2D(GL_TEXTURE_2D,0,0,width,height,0,GL_UNSIGNED_BYTE,GL_BGRA, data);
-
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		delete data;
-	}
-	else if (bpp == 24)
-	{
-		glTexStorage2D(GL_TEXTURE_2D,0, GL_RGB8, width, height);
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_BGR,GL_UNSIGNED_BYTE, data);
-		
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		delete data;
-	}
 
 
 
-	glGenTextures(1, &textureID2);
+	//glGenTextures(1, &textureID2);
 
-	glBindTexture(GL_TEXTURE_2D, textureID2);
-	if (bpp == 32)
-	{
-		glTextureStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, height, width);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_UNSIGNED_BYTE, GL_RGBA, data2);
+	//glBindTexture(GL_TEXTURE_2D, textureID2);
+	//if (bpp == 32)
+	//{
+	//	glTextureStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, height, width);
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_UNSIGNED_BYTE, GL_RGBA, data2);
 
-		glGenerateMipmap(GL_TEXTURE_2D);
+	//	glGenerateMipmap(GL_TEXTURE_2D);
 
-		delete data2;
-	}
-	else if (bpp == 24)
-	{
-		glTexStorage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data2);
+	//	delete data2;
+	//}
+	//else if (bpp == 24)
+	//{
+	//	glTexStorage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height);
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data2);
 
-		glGenerateMipmap(GL_TEXTURE_2D);
+	//	glGenerateMipmap(GL_TEXTURE_2D);
 
-		delete data2;
-	}
+	//	delete data2;
+	//}
 
 	GLuint vboHandles[3];
 	glGenBuffers(3, vboHandles);
