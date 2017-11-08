@@ -48,8 +48,9 @@ private:
 
 	object m_cube;
 	Material m_material;
-
 	Shader m_shader;
+
+	GLint m_numOfVerticies;
 
 	float m_rotation;
 
