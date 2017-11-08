@@ -22,6 +22,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{a80d4a4e-ad89-492c-9945-74beee945466}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{e2b72104-3bf4-481f-9267-3108499ce807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\middleware\glad\src\glad.c">
@@ -63,9 +66,6 @@
     <ClCompile Include="Scene04.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,6 +73,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="renderable.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="scene05.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="meshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,9 +131,6 @@
     <ClInclude Include="image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,6 +144,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderable.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="scene05.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="meshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

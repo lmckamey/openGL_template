@@ -7,15 +7,18 @@
 class Object
 {
 public:
-	Object() {};
+	Object(){}
 	Object(std::string name, Scene* scene):m_scene(scene), m_name(name){}
-	~Object() {};
+	virtual ~Object() {}
+
+	virtual void Update();
 
 public:
 	std::string m_name;
 	Transform m_transform;
 
 protected:
+
 	Scene* m_scene;
 };
 

@@ -1,9 +1,9 @@
-#include <stb_image.h>
-
 #include "material.h"
 
 #define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
+static GLuint texture = 0;
 
 Material::Material()
 {
@@ -31,8 +31,6 @@ bool Material::LoadTexture2D(const std::string & filename, GLuint activeTexture)
 	int n;
 	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &n, 0);
 
-	GLuint texture; 
-
 	glGenTextures(0, &activeTexture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -44,13 +42,14 @@ bool Material::LoadTexture2D(const std::string & filename, GLuint activeTexture)
 
 	if (data)
 	{
-		glTextureStorage2D(GL_TEXTURE_2D, 0, storageFormat, height, width);
+		//glTextureStorage2D(GL_TEXTURE_2D, 0, storageFormat, height, width);
 		glTexImage2D(GL_TEXTURE_2D, 0, 0, width, height, 0, GL_UNSIGNED_BYTE, imageFormat, data);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		delete data;
 		success = true;
+		texture++;
 	}
 
 

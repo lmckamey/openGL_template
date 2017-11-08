@@ -2,7 +2,7 @@
 #include "glm\matrix.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 #include "stb_image.h"
-#include "Scene04.h"
+#include "Scene05.h"
 #include "timer.h"
 #include "renderer.h"
 #include "stdafx.h"
@@ -10,7 +10,6 @@
 #include "input.h"
 #include "light.h"
 #define PHONG
-
 
 
 namespace
@@ -89,18 +88,18 @@ namespace
 
 }
 
-Scene04::~Scene04()
+Scene05::~Scene05()
 {
 }
 
-bool Scene04::Initalize()
+bool Scene05::Initalize()
 {
 
 	GLint bpp;
-	GLint height;	
+	GLint height;
 	GLint width;
 
-	m_engine->Get<Input>()->AddButton("escape",Input::eButtonType::KEYBOARD,GLFW_KEY_ESCAPE);
+	m_engine->Get<Input>()->AddButton("escape", Input::eButtonType::KEYBOARD, GLFW_KEY_ESCAPE);
 
 	Camera* camera = new Camera("camera", this);
 	camera->Initialize(glm::vec3(0.0f, 1.0f, 1.5f), glm::vec3(0));
@@ -136,7 +135,7 @@ bool Scene04::Initalize()
 
 	m_shader.Link();
 	m_shader.Use();
-	
+
 	m_material.SetMaterial(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.0f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f), 100.0f);
 	m_material.LoadTexture2D("..\\Resources\\Textures\\crate.bmp", GL_TEXTURE0);
 	m_material.LoadTexture2D("..\\Resources\\Textures\\crate_specular.bmp", GL_TEXTURE1);
@@ -158,7 +157,7 @@ bool Scene04::Initalize()
 
 	glBindVertexBuffer(0, vboHandles[VERTEX], 0, sizeof(glm::vec3) * 2 + sizeof(float) * 2);
 	glBindVertexBuffer(1, vboHandles[VERTEX], sizeof(glm::vec3), sizeof(glm::vec3) * 2 + sizeof(float) * 2);
-	glBindVertexBuffer(2, vboHandles[VERTEX], sizeof(glm::vec3)*2, sizeof(glm::vec3) * 2 + sizeof(float) *2);
+	glBindVertexBuffer(2, vboHandles[VERTEX], sizeof(glm::vec3) * 2, sizeof(glm::vec3) * 2 + sizeof(float) * 2);
 
 	glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
 	glVertexAttribBinding(0, 0);
@@ -173,7 +172,7 @@ bool Scene04::Initalize()
 	return true;
 }
 
-void Scene04::Update()
+void Scene05::Update()
 {
 	m_rotation = m_rotation + m_engine->Get<Timer>()->FrameTime();
 	translate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -202,7 +201,7 @@ void Scene04::Update()
 
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	m_shader.SetUniform("lightColor", lightColor);
-	
+
 	m_shader.SetUniform("material.ambient", m_material.m_ambient);
 	m_shader.SetUniform("material.diffuse", m_material.m_diffuse);
 	m_shader.SetUniform("material.specular", m_material.m_specular);
@@ -220,9 +219,9 @@ void Scene04::Update()
 		object->Update();
 	}
 
-	}
+}
 
-void Scene04::Render()
+void Scene05::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -235,6 +234,6 @@ void Scene04::Render()
 	glBindVertexArray(0);
 }
 
-void Scene04::Shutdown()
+void Scene05::Shutdown()
 {
 }

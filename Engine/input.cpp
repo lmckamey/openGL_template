@@ -3,6 +3,9 @@
 #include "input.h"
 #include "renderer.h"
 
+float Input::s_scrollX = 0.0f;
+float Input::s_scrollY = 0.0f;
+
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)

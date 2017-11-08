@@ -5,12 +5,12 @@
 #include "camera.h"
 #include "shader.h"
 
-class Scene04 :
+class Scene05 :
 	public Scene
 {
 public:
-	Scene04(Engine* e) : Scene(e) {}
-	~Scene04();
+	Scene05(Engine* e) : Scene(e) {}
+	~Scene05();
 
 	bool Initalize();
 	void Update();
