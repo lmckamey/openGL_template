@@ -1,12 +1,6 @@
 #include "renderable.h"
 
-
-
-Renderable::Renderable()
+void Renderable::Update()
 {
-}
 
-
-Renderable::~Renderable()
-{
 }

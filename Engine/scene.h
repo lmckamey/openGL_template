@@ -59,9 +59,10 @@ inline std::vector<T*> Scene::GetObjects()
 	std::vector<T*> objects;
 	for (auto object : m_objects)
 	{
-		if (dynamic_cast<T*>(object) != nullptr)
+		auto tempObj = dynamic_cast<T*>(object);
+		if (tempObj != nullptr)
 		{
-			objects.push_back(object);
+			objects.push_back(tempObj);
 		}
 	}
 	return objects;

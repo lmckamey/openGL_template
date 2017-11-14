@@ -1,10 +1,10 @@
 #version 430
 
-in vec3 outVertexColor;
+in vec3 colorFragment;
 
 layout (location=0) out vec4 outFragmentColor;
 
 void main()
 {
-    outFragmentColor = vec4(outVertexColor, 1.0);
+    outFragmentColor = vec4(colorFragment , 1.0);
 }

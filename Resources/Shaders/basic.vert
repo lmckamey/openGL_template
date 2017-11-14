@@ -1,12 +1,14 @@
 #version 430
 
-layout (location=0) in vec3 vertexPosition;
-layout (location=1) in vec3 vertexColor;
+layout (location=0) in vec3 positionVertex;
+	
+uniform vec3 color;
+uniform mat4 mxMVP;
 
-out vec3 outVertexColor;
+out vec3 colorFragment;
 
 void main()
 {
-    outVertexColor = vertexColor;
-    gl_Position = vec4(vertexPosition, 1.0);
+    colorFragment = color;
+    gl_Position = mxMVP * vec4(positionVertex, 1.0);
 }

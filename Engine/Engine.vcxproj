@@ -75,7 +75,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\middleware\stb_Image;$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\middleware\glad\include;$(SolutionDir)..\middleware\glm-master;$(SolutionDir)..\middleware\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\middleware\stb_Image;$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\middleware\glad\include;$(SolutionDir)..\middleware\glm-master;$(SolutionDir)..\middleware\helpers;$(SolutionDir)..\middleware\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)..\middleware\glfw-3.2.1.bin.WIN32\lib-vc2015;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -123,7 +123,9 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="material.cpp" />
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="meshLoader.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="renderable.cpp" />
     <ClCompile Include="renderer.cpp" />
@@ -134,6 +136,8 @@
     <ClCompile Include="scene03.cpp" />
     <ClCompile Include="Scene04.cpp" />
     <ClCompile Include="scene05.cpp" />
+    <ClCompile Include="scene06.cpp" />
+    <ClCompile Include="scene07.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="transform.cpp" />
@@ -147,7 +151,9 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="material.h" />
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="meshLoader.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="renderable.h" />
     <ClInclude Include="renderer.h" />
@@ -157,6 +163,8 @@
     <ClInclude Include="scene03.h" />
     <ClInclude Include="Scene04.h" />
     <ClInclude Include="scene05.h" />
+    <ClInclude Include="scene06.h" />
+    <ClInclude Include="scene07.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system.h" />
@@ -164,12 +172,19 @@
     <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\Shaders\basic.frag" />
+    <None Include="..\Resources\Shaders\basic.vert" />
     <None Include="..\Resources\Shaders\gouraud.vert.shader" />
     <None Include="..\Resources\Shaders\multi_texture_phong.frag.shader" />
     <None Include="..\Resources\Shaders\multi_texture_phong.vert.shader" />
     <None Include="..\Resources\Shaders\phong.frag.shader" />
     <None Include="..\Resources\Shaders\phong.vert.shader" />
+    <None Include="..\Resources\Shaders\phong_directional.frag.shader" />
+    <None Include="..\Resources\Shaders\phong_directional.vert.shader" />
+    <None Include="..\Resources\Shaders\phong_spotlight.frag.shader" />
+    <None Include="..\Resources\Shaders\phong_spotlight.vert .shader" />
     <None Include="..\Resources\Shaders\texture_phong.frag.shader" />
+    <None Include="..\Resources\Shaders\texture_phong.vert.shader" />
     <None Include="..\Resources\Shaders\texture_phong_specular.frag.shader" />
     <None Include="..\Resources\Shaders\texture_phong_specular.vert.shader" />
     <None Include="..\Resources\Shaders\transform.vert.shader" />

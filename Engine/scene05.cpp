@@ -2,6 +2,7 @@
 #include "glm\matrix.hpp"
 #include "glm\gtc\matrix_transform.hpp"
 #include "stb_image.h"
+#include "tiny_obj_loader.h"
 #include "Scene05.h"
 #include "timer.h"
 #include "renderer.h"
@@ -141,6 +142,7 @@ bool Scene05::Initalize()
 	std::vector<glm::vec2> uvs;
 
 	MeshLoader::LoadMesh("..\\Resources\\Meshes\\Dargon.obj", vertices, normals, uvs);
+
 
 	m_numOfVerticies = vertices.size();
 

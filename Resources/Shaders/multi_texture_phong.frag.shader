@@ -46,4 +46,5 @@ void main()
 
 	outFragmentColor = texColor *vec4((ambient + diffuse), 1.0) + vec4(specular, 1.0);
 	//outFragmentColor = texColor + vec4(specular, 1.0);
+	outFragmentColor = texColor1;
 }
