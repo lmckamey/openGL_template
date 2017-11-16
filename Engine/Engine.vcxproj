@@ -138,6 +138,7 @@
     <ClCompile Include="scene05.cpp" />
     <ClCompile Include="scene06.cpp" />
     <ClCompile Include="scene07.cpp" />
+    <ClCompile Include="scene08.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="transform.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="scene05.h" />
     <ClInclude Include="scene06.h" />
     <ClInclude Include="scene07.h" />
+    <ClInclude Include="scene08.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system.h" />
@@ -181,6 +183,8 @@
     <None Include="..\Resources\Shaders\phong.vert.shader" />
     <None Include="..\Resources\Shaders\phong_directional.frag.shader" />
     <None Include="..\Resources\Shaders\phong_directional.vert.shader" />
+    <None Include="..\Resources\Shaders\phong_multiLight.frag.shader" />
+    <None Include="..\Resources\Shaders\phong_multiLight.vert.shader" />
     <None Include="..\Resources\Shaders\phong_spotlight.frag.shader" />
     <None Include="..\Resources\Shaders\phong_spotlight.vert .shader" />
     <None Include="..\Resources\Shaders\texture_phong.frag.shader" />

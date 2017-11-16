@@ -102,6 +102,9 @@
     <ClCompile Include="scene07.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="scene08.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\middleware\glad\include\glad\glad.h">
@@ -185,6 +188,9 @@
     <ClInclude Include="scene07.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="scene08.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\transform.vert.shader">
@@ -233,6 +239,12 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="..\Resources\Shaders\phong_spotlight.vert .shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_multiLight.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_multiLight.vert.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>
