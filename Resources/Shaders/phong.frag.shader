@@ -16,7 +16,7 @@ struct Material
 
 struct Light
 {
-	vec3 position;
+	vec4 position;
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
@@ -34,35 +34,35 @@ uniform Light light;
 
 uniform sampler2D textureSampler;
 
-void main()
+void phong(vec3 position, vec3 normal, out vec3 ambientDiffuse, out vec3 specular)
 {
 
-	vec3 positionToLight = normalize(light.position - vec3(outFragmentPosition));
-
-
-	float diffuseIntensity = max(dot(positionToLight, outFragmentNormal), 0.0);
-	vec3 diffuse = light.diffuse * material.diffuse * diffuseIntensity;
+	vec3 positionToLight = vec3(normalize(light.position - outFragmentPosition));
 	vec3 ambient = light.ambient * material.ambient;
 
-	vec3 specular = vec3(0.0);
+	float diffuseIntensity = max(dot(positionToLight, outFragmentNormal), 0.0);
+	vec3 diffuse = (light.diffuse * material.diffuse * diffuseIntensity);
+
+	ambientDiffuse = ambient + diffuse;
+	// specular calculations that were in main
+
 	float specularIntensity = 0.0;
 	if (diffuseIntensity > 0.0)
 	{
 		vec3 positionToView = normalize(-outFragmentPosition.xyz);
 		vec3 reflectLightVector = reflect(-positionToLight, outFragmentNormal);
 		specularIntensity = max(dot(reflectLightVector, positionToView), 0.0);
-		specularIntensity = pow(specularIntensity, 32.0);
-		specular = light.diffuse * material.specular * specularIntensity;
+		specularIntensity = pow(specularIntensity, material.shininess);
 	}
+		specular = (light.specular * material.specular * specularIntensity);
 
-	float distance = abs(outFragmentPosition.z);
-	float fogIntensity = distance - fog.distanceMin / fog.distanceMax - fog.distanceMin;
-	fogIntensity = clamp(fogIntensity, 0.0, 1.0);
+}
 
-	vec4 mixColor = mix(vec4((ambient + diffuse),1.0) + vec4(specular, 1.0), vec4(fog.color, 1.0), fogIntensity);
+void main()
+{
+	vec3 ambientDiffuse;
+	vec3 specular;
+	phong(vec3(outFragmentPosition), outFragmentNormal, ambientDiffuse, specular);
 
-	vec4 texColor = texture(textureSampler, outUVData);
-
-	//outFragmentColor = vec4(mixColor,1.0) * vec4((ambient + diffuse), 1.0) + vec4(specular, 1.0);
-	outFragmentColor = mixColor;
+	outFragmentColor = vec4(ambientDiffuse + specular, 1.0);
 }

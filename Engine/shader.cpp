@@ -150,7 +150,10 @@ GLint Shader::GetUniformLocation(const std::string& uniformName)
 	{
 		m_uniformLocations[uniformName] = glGetUniformLocation(m_program, uniformName.c_str());
 	}
-	assert(m_uniformLocations[uniformName] != -1);
+	if (m_uniformLocations[uniformName] == -1)
+	{
+		//std::cout << uniformName << " uniform does not exist in the shader." << std::endl;
+	}
 
 	return m_uniformLocations[uniformName];
 }

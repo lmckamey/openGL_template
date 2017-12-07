@@ -10,66 +10,12 @@
 #include "meshLoader.h"
 #include "input.h"
 #include "light.h"
-#define PHONG
+#define TEXTURES
 
 
 namespace
 {
-	//float vertexData[] =
-	//{
-	//	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-	//	0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-	//	0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-	//	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-	//	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-	//	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-	//	0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-	//	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-	//	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-	//	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-	//	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-	//	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	//	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	//	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-	//	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-	//	0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-	//	0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	//	0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	//	0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-	//	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-	//	0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-	//	0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-	//	0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-	//	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-	//	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-	//	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-	//	0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-	//	0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-	//	0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-	//	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-	//	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-
-	//};
-
-/*
-
-	enum vboID
-	{
-		POSITION,
-		COLOR,
-		VERTEX
-	};
-*/
 	GLuint vaoHandle;
 
 	glm::mat4 mxModel;
@@ -141,7 +87,7 @@ bool Scene05::Initalize()
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 
-	MeshLoader::LoadMesh("..\\Resources\\Meshes\\Dargon.obj", vertices, normals, uvs);
+	MeshLoader::LoadMesh("..\\Resources\\Meshes\\cube.obj", vertices, normals, uvs);
 
 
 	m_numOfVerticies = vertices.size();
@@ -211,7 +157,7 @@ void Scene05::Update()
 
 	Light* light = GetObject<Light>("light");
 	glm::vec3 lightPosition = mxView * glm::vec4(light->m_transform.m_position, 1.0f);
-	m_shader.SetUniform("light.position", lightPosition);
+	m_shader.SetUniform("lightPosition", lightPosition);
 
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	m_shader.SetUniform("lightColor", lightColor);
@@ -219,8 +165,6 @@ void Scene05::Update()
 	m_shader.SetUniform("material.ambient", m_material.m_ambient);
 	m_shader.SetUniform("material.diffuse", m_material.m_diffuse);
 	m_shader.SetUniform("material.specular", m_material.m_specular);
-
-	m_shader.SetUniform("light.ambient", light->ambient);
 
 	if (m_engine->Get<Input>()->GetButton("escape") == Input::eButtonState::DOWN)
 	{
@@ -244,6 +188,9 @@ void Scene05::Render()
 	m_material.SetTextures();
 	glBindVertexArray(vaoHandle);
 	glDrawArrays(GL_TRIANGLES, 0, m_numOfVerticies);
+
+	glfwSwapBuffers(m_engine->Get<Renderer>()->m_window);
+
 
 }
 

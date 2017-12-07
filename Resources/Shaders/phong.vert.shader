@@ -17,6 +17,7 @@ void main()
 {
 	outFragmentPosition = mxModelView * vec4(vertexPosition,1.0);
 	outFragmentNormal = mxNormal * vertexNormal;
+	outUVData = UVdata;
 
 	gl_Position = mxMVP * vec4(vertexPosition, 1.0);
 }

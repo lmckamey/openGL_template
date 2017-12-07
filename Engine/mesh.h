@@ -11,7 +11,8 @@ public:
 		POSITION,
 		NORMAL,
 		COLOR,
-		TEXCOORD
+		TEXCOORD,
+		TANGENT
 	};
 
 	struct BufferInfo
@@ -28,11 +29,14 @@ public:
 	~Mesh();
 
 	void Use();
-	void BindVertexAttrib(GLuint attrib, eVertexType type);
 	void Render();
 
-	bool Load(const std::string& filename);
+	void BindVertexAttrib(GLuint attrib, eVertexType type);
+	bool Load(const std::string& filename, bool createTangents = false);
 
+public:
+
+	static void CalculateTangent(glm::vec3& tangent, const glm::vec3& v0, const glm::vec3& v1, const glm::vec3& v2, const glm::vec2& uv0, const glm::vec2& uv1, const glm::vec2& uv2, const glm::vec3& normal);
 	static void CalculateNormal(glm::vec3& normal, const glm::vec3& v0, const glm::vec3& v1, const glm::vec3& v2);
 
 private:

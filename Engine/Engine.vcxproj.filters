@@ -105,6 +105,18 @@
     <ClCompile Include="scene08.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="scene09.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene10.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene11.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene12.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\middleware\glad\include\glad\glad.h">
@@ -191,6 +203,18 @@
     <ClInclude Include="scene08.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="scene09.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene10.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene11.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene12.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Shaders\transform.vert.shader">
@@ -245,6 +269,36 @@
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
     <None Include="..\Resources\Shaders\phong_multiLight.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\reflection.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\reflection.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_bump.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_bump.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow_depth.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow_depth.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow_depth_debug.vert.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow_depth_debug.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow.frag.shader">
+      <Filter>Resource Files\Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\phong_shadow.vert.shader">
       <Filter>Resource Files\Resources\Shaders</Filter>
     </None>
   </ItemGroup>

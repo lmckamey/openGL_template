@@ -59,18 +59,11 @@ bool Scene08::Initalize()
 	}
 
 	auto model = new Model("model", this);
-	model->m_transform.m_scale = glm::vec3(1.0f);
-	model->m_transform.m_position = glm::vec3(0.0f);
-
-	auto model2 = new Model("plane", this);
-	model2->m_transform.m_scale = glm::vec3(5.0f);
-	model2->m_transform.m_position = glm::vec3(0.0f, -1.0f, 0.0f);
+	model->m_transform.m_scale = glm::vec3(0.01f);
+	model->m_transform.m_position = glm::vec3(0.0f, -3.0f, 0.0f);
 
 	model->m_shader.CompileShader("..\\Resources\\Shaders\\phong_multiLight.vert.shader", GL_VERTEX_SHADER);
 	model->m_shader.CompileShader("..\\Resources\\Shaders\\phong_multiLight.frag.shader", GL_FRAGMENT_SHADER);
-
-	model2->m_shader.CompileShader("..\\Resources\\Shaders\\phong_multiLight.vert.shader", GL_VERTEX_SHADER);
-	model2->m_shader.CompileShader("..\\Resources\\Shaders\\phong_multiLight.frag.shader", GL_FRAGMENT_SHADER);
 
 
 	auto lights = GetObjects<Light>();
@@ -82,7 +75,7 @@ bool Scene08::Initalize()
 	model->m_shader.PrintActiveUniforms();
 
 	model->m_material.m_ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-	model->m_material.m_diffuse = glm::vec3(0.0f, 0.75f, 0.75f);
+	model->m_material.m_diffuse = glm::vec3(0.3f, 0.3f, 0.3f);
 	model->m_material.m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
 	model->m_material.m_shininess = 0.4f * 12.0f;
 
@@ -102,7 +95,7 @@ bool Scene08::Initalize()
 		model->m_shader.SetUniform(uniformName, lights[i]->specular);
 	}
 
-	model->m_mesh.Load("..\\Resources\\Meshes\\suzanne.obj");
+	model->m_mesh.Load("..\\Resources\\Meshes\\Environment.obj");
 
 	model->m_mesh.BindVertexAttrib(0, Mesh::eVertexType::POSITION);
 	model->m_mesh.BindVertexAttrib(1, Mesh::eVertexType::NORMAL);
@@ -110,43 +103,7 @@ bool Scene08::Initalize()
 
 	AddObject(model);
 
-	model2->m_shader.Link();
-	model2->m_shader.Use();
-	model2->m_shader.PrintActiveAttribs();
-	model2->m_shader.PrintActiveUniforms();
-
-	model2->m_material.m_ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-	model2->m_material.m_diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-	model2->m_material.m_specular = glm::vec3(1.0f, 1.0f, 1.0f);
-	model2->m_material.m_shininess = 0.4f * 64.0f;
-	model2->m_material.LoadTexture2D("..\\Resources\\Textures\\crate.bmp", GL_TEXTURE0);
-	model2->m_material.LoadTexture2D("..\\Resources\\Textures\\crate_specular.bmp", GL_TEXTURE1);
-
-	model2->m_shader.SetUniform("material.ambient", model2->m_material.m_ambient);
-	model2->m_shader.SetUniform("material.diffuse", model2->m_material.m_diffuse);
-	model2->m_shader.SetUniform("material.specular", model2->m_material.m_specular);
-	model2->m_shader.SetUniform("material.shininess", model2->m_material.m_shininess);
-
-	for (int i = 0; i < lights.size(); i++)
-	{
-		char uniformName[32];
-
-		sprintf_s(uniformName, "lights[%d].diffuse", i);
-		model2->m_shader.SetUniform(uniformName, lights[i]->diffuse);
-
-		sprintf_s(uniformName, "lights[%d].specular", i);
-		model2->m_shader.SetUniform(uniformName, lights[i]->specular);
-	}
-
-	model2->m_mesh.Load("..\\Resources\\Meshes\\plane.obj");
-
-
-	model2->m_mesh.BindVertexAttrib(0, Mesh::eVertexType::POSITION);
-	model2->m_mesh.BindVertexAttrib(1, Mesh::eVertexType::NORMAL);
-	model2->m_mesh.BindVertexAttrib(2, Mesh::eVertexType::TEXCOORD);
-
-	AddObject(model2);
-	return true;
+		return true;
 }
 
 void Scene08::Update()
@@ -162,7 +119,6 @@ void Scene08::Update()
 	auto lights = GetObjects<Light>();
 	for (size_t i = 0; i < lights.size(); i++)
 	{
-		// calculate light position position = view * light[i]
 		float w = (m_pointLightMode) ? 1.0f : 0.0f;
 
 		m_rotation = m_rotation + 1.0f * dt;
@@ -172,26 +128,16 @@ void Scene08::Update()
 		lights[i]->m_transform.m_position = temp;
 		glm::vec4 position = camera->GetView() * glm::vec4(temp, w);
 
-		//m_rotation = m_rotation + 1.0f * dt;
-		//glm::quat rotation = glm::angleAxis(m_rotation, glm::vec3(0.0f, 1.0f, 0.0f));
-		//light->m_transform.m_position = rotation * glm::vec3(0.0f, 1.0f, 1.0f);
-		// = camera->GetView() * glm::vec4(light->m_transform.m_position, w);
-
-
 		auto models = GetObjects<Model>();
 
 		for (auto model : models)
 		{
-			// set uniform for model shader
-			// make sure you call Use() on the model->shader so that it is set
 			model->m_shader.Use();
-			// create name of uniform like above sprintf_s but it’ll be position
-		
+
 			char uniformName[32]; 
 			sprintf_s(uniformName, "lights[%d].position", i);
-			// set model->shader->SetUniform
-			model->m_shader.SetUniform(uniformName, position);
 
+			model->m_shader.SetUniform(uniformName, position);
 		}
 	}
 

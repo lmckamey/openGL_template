@@ -13,7 +13,8 @@ public:
 	enum class eType
 	{
 		EDITOR,
-		ORBIT
+		ORBIT,
+		LOOK_AT
 	};
 
 	struct Data

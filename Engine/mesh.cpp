@@ -34,7 +34,7 @@ void Mesh::Render()
 	glBindVertexArray(0);
 }
 
-bool Mesh::Load(const std::string& filename)
+bool Mesh::Load(const std::string& filename, bool createTangents)
 {
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
@@ -42,6 +42,8 @@ bool Mesh::Load(const std::string& filename)
 
 	std::string returnMessage;
 	bool result = tinyobj::LoadObj(&attrib, &shapes, &materials, &returnMessage, filename.c_str());
+
+
 
 	if (!returnMessage.empty())
 	{
@@ -64,6 +66,7 @@ bool Mesh::Load(const std::string& filename)
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> texcoords;
+	std::vector<glm::vec3> tangents;
 
 	// load buffers
 	for (const auto& shape : shapes)
@@ -120,6 +123,19 @@ bool Mesh::Load(const std::string& filename)
 		}
 	}
 
+	//creates tangents if prompted
+	if (createTangents && !texcoords.empty())
+	{
+		for (size_t i = 0; i < vertices.size(); i += 3)
+		{
+			glm::vec3 tangent;
+			CalculateTangent(tangent, vertices[i + 0], vertices[i + 1], vertices[i + 2], texcoords[i + 0], texcoords[i + 1], texcoords[i + 2], normals[i]);
+			tangents.push_back(tangent);
+			tangents.push_back(tangent);
+			tangents.push_back(tangent);
+		}
+	}
+
 	// set
 	if (!vertices.empty())
 	{
@@ -132,6 +148,10 @@ bool Mesh::Load(const std::string& filename)
 	if (!texcoords.empty())
 	{
 		AddBuffer(eVertexType::TEXCOORD, texcoords.size(), sizeof(glm::vec2), (GLvoid*)texcoords.data());
+	}
+	if (!tangents.empty())
+	{
+		AddBuffer(eVertexType::TANGENT, tangents.size(), sizeof(glm::vec3), (GLvoid*)tangents.data());
 	}
 
 	// create vertex array object
@@ -173,6 +193,24 @@ void Mesh::AddBuffer(eVertexType type, size_t numElements, size_t elementSize, v
 	{
 		m_buffers.push_back({ type, 0, numElements, elementSize, data });
 	}
+}
+
+void Mesh::CalculateTangent(glm::vec3 & tangent, const glm::vec3 & v0, const glm::vec3 & v1, const glm::vec3 & v2, const glm::vec2 & uv0, const glm::vec2 & uv1, const glm::vec2 & uv2, const glm::vec3 & normal)
+{
+	glm::vec3 edge1 = v1 - v0;
+	glm::vec3 edge2 = v2 - v0;
+
+	float du1 = uv1[0] - uv0[0];
+	float dv1 = uv1[1] - uv0[1];
+	float du2 = uv2[0] - uv0[0];
+	float dv2 = uv2[1] - uv0[1];
+
+	float r = 1.0f / (du1 * dv2 - dv1 * du2); // determinant
+
+	tangent = (edge1 * v2 - edge2 * v1) * r;
+
+	// Gram-Schmidt orthogonalize
+	tangent = glm::normalize(tangent - (normal * glm::dot(normal, tangent)));
 }
 
 void Mesh::CalculateNormal(glm::vec3& normal, const glm::vec3& v0, const glm::vec3& v1, const glm::vec3& v2)
